@@ -9,9 +9,7 @@ private String nome;
 private String cognome;
 private List<CorsoDTO> corsi;
 
-public DocenteDTO(){
-    corsi = new ArrayList<>();
-}
+public DocenteDTO(){corsi = new ArrayList<>();}
     public void setNome(String nome) {
         this.nome = nome;
     }

@@ -38,8 +38,7 @@ public class DocenteService {
         docente.setNome(docenteDTO.getNome());
         docente.setCognome(docenteDTO.getCognome());
         Docente savedDocente = docenteRepository.save(docente);
-
-        DocenteDTO savedDocenteDTO = DocenteConverter.entityToDTO(docente);
+        DocenteDTO savedDocenteDTO = DocenteConverter.entityToDTO(savedDocente);
 
         return savedDocenteDTO;
     }

@@ -19,10 +19,20 @@ public class DiscenteService {
         this.discenteRepository=discenteRepository;
     }
     public DiscenteDTO addDiscente(DiscenteDTO discenteDTO){
-        Discente discente= DiscenteConverter.DTOToEntity2(discenteDTO);
+        Discente discente= new Discente();
+        discente.setNome(discenteDTO.getNome());
+        discente.setCognome(discenteDTO.getCognome());
+        discente.setMatricola(discenteDTO.getMatricola());
+        discente.setDataDiNascita(discenteDTO.getDataDiNascita());
 
         Discente savedDiscente = discenteRepository.save(discente);
-        return DiscenteConverter.entityToDTO2(savedDiscente);
+        DiscenteDTO discenteDTOSaved= new DiscenteDTO();
+        discenteDTOSaved.setNome(savedDiscente.getNome());
+        discenteDTOSaved.setCognome(savedDiscente.getCognome());
+        discenteDTOSaved.setMatricola(savedDiscente.getMatricola());
+        discenteDTOSaved.setDataDiNascita(savedDiscente.getDataDiNascita());
+        discenteDTOSaved.setId(savedDiscente.getId());
+        return discenteDTOSaved;
 
     }
 }

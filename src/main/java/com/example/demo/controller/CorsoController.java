@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.DTO.CorsoDTO;
 import com.example.demo.DTO.DocenteDTO;
+import com.example.demo.entity.Corso;
 import com.example.demo.service.CorsoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

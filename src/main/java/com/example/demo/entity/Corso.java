@@ -19,7 +19,7 @@ public class Corso {
     @ManyToOne
     @JoinColumn(name = "docente_id")
     private Docente docente;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "corso_discente",
            joinColumns = @JoinColumn(name = "corso_id"),
            inverseJoinColumns = @JoinColumn(name="discente_id"))
@@ -73,11 +73,11 @@ public class Corso {
     public void setDocenteCognome(String cognome){
         this.docente.setCognome(cognome);
     }
-    public String getDocenteCognome(){
-        return docente.getCognome();
+    public String getDocenteNome() {
+        return  docente.getNome();
     }
-    public String getDocenteNome(){
-        return docente.getNome();
+    public String getDocenteCognome() {
+        return docente.getCognome();
     }
     public Integer getId(){
         return id;

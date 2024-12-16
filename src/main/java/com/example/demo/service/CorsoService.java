@@ -27,17 +27,19 @@ public class CorsoService {
         corso.setDurata(corsoDTO.getDurata());
         corso.setNomeCorso(corsoDTO.getNomeCorso());
         corso.setDataInizio(corsoDTO.getDataInizio());
-        //corso.setDocenteId(corsoDTO.getDocenteDTOId());
+        corso.setDocenteId(corsoDTO.getIdDocenteDTO());
         Corso savedCorso = corsoRepository.save(corso);
-
-        CorsoDTO savedCorsoDTO = CorsoConverter.entityToDTO2(savedCorso);
-
+        //System.out.println("ecco l'id "+ savedCorso.getId());
+        CorsoDTO savedCorsoDTO = getCorsoById(savedCorso.getId());
+        //System.out.println("ecco il cognome" + savedCorsoDTO.getCognomeDocenteDTO());
+        //CorsoDTO savedCorsoDTO= CorsoConverter.entityToDTO(savedCorso);
         return savedCorsoDTO;
     }
     public CorsoDTO getCorsoById(Integer id){
         Optional<Corso> corso = corsoRepository.findById(id);
         if (corso.isPresent()){
             CorsoDTO corsoDTO = CorsoConverter.entityToDTO(corso.get());
+            System.out.println(corso.get().getDocenteNome());
             //System.out.println("CorsoDTO ID: " + corsoDTO.getDocenteDTOId());
             return corsoDTO;
         }else {
@@ -62,7 +64,7 @@ public class CorsoService {
            existingCorso.setDurata(corsoDTO.getDurata());
            //existingCorso.setDiscenti(corsoDTO.getDiscenti());
            Docente docente =new Docente();
-           //docente.setId(corsoDTO.getDocenteDTOId());
+           docente.setId(corsoDTO.getIdDocenteDTO());
            existingCorso.setDocente(docente);
            Corso updateCorso = corsoRepository.save(existingCorso);
            return CorsoConverter.entityToDTO(updateCorso);

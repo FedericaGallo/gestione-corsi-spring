@@ -13,7 +13,7 @@ public class Docente {
     private Integer id;
     private String nome;
     private String cognome;
-    @OneToMany(mappedBy = "docente")
+    @OneToMany(mappedBy = "docente", cascade = CascadeType.ALL)
     private List<Corso> corsi;
 
     public Docente() {
