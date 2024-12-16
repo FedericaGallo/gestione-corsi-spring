@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.web.bind.annotation.Mapping;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,6 +25,9 @@ public class Discente {
 
     private List<Corso> corsiSeguiti;
 
+    public Discente(){
+        this.corsiSeguiti=new ArrayList<>();
+    }
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -43,11 +47,11 @@ public class Discente {
         return cognome;
     }
 
-    public void setid(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public int getid() {
+    public int getId() {
         return id;
     }
 
@@ -58,6 +62,13 @@ public class Discente {
     public void setDataDiNascita(LocalDate data) {this.dataDiNascita = data;}
 
     public LocalDate getDataDiNascita() {return dataDiNascita; }
+
+    public void setCorsiSeguiti(List<Corso> corsiSeguiti){
+        this.corsiSeguiti=corsiSeguiti;
+    }
+    public List<Corso> getCorsiSeguiti(){
+       return corsiSeguiti;
+    }
 
 
 

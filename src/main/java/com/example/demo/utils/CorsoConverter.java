@@ -16,12 +16,15 @@ public class CorsoConverter {
         corsoDTO.setDataInizio(corso.getDataInizio());
         corsoDTO.setDurata(corso.getDurata());
         corsoDTO.setId(corso.getId());
-        Docente docente = corso.getDocente();
-        DocenteDTO docenteDTO = new DocenteDTO();
+        //Docente docente = corso.getDocente();
+        corsoDTO.setNomeDocenteDTO(corso.getDocenteCognome());
+        corsoDTO.setCognomeDocenteDTO(corso.getDocenteNome());
+        corsoDTO.setIdDocenteDTO(corso.getDocenteId());
+      /*  DocenteDTO docenteDTO = new DocenteDTO();
         docenteDTO.setId(docente.getId());
         docenteDTO.setNome(docente.getNome());
         docenteDTO.setCognome(docente.getCognome());
-        corsoDTO.setDocenteDTO(docenteDTO);
+        corsoDTO.setDocenteDTO(docenteDTO);*/
 
         return corsoDTO;
     }
@@ -33,9 +36,22 @@ public class CorsoConverter {
         corsoDTO.setDurata(corso.getDurata());
         corsoDTO.setId(corso.getId());
         corsoDTO.setNomeCorso(corso.getNomeCorso());
-        corsoDTO.setDocenteDTONome(corso.getDocenteNome());
-        corsoDTO.setDocenteDTONome(corso.getDocenteCognome());
-        corsoDTO.setDocenteDTOId(corso.getDocenteId());
+        //corsoDTO.setDocenteDTONome(corso.getDocenteNome());
+        //corsoDTO.setDocenteDTONome(corso.getDocenteCognome());
+        //corsoDTO.setDocenteDTOId(corso.getDocenteId());
         return corsoDTO;
+    }
+    public static Corso DTOToEntity(CorsoDTO corsoDTO){
+        Corso corso = new Corso();
+        corso.setNomeCorso(corsoDTO.getNomeCorso());
+        corso.setDiscenti(corsoDTO.getDiscenti());
+        corso.setDataInizio(corsoDTO.getDataInizio());
+        corso.setDurata(corsoDTO.getDurata());
+        corso.setId(corsoDTO.getId());
+        corso.setNomeCorso(corsoDTO.getNomeCorso());
+        //corso.setDocenteNome(corsoDTO.getDocenteDTONome());
+       // corso.setDocenteNome(corsoDT0.getDocenteDTOCognome());
+       // corso.setDocenteId(corsoDTO.getDocenteDTOId());
+        return corso;
     }
 }

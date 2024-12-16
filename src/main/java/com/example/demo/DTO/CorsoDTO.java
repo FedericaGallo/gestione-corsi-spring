@@ -16,11 +16,11 @@ public class CorsoDTO {
     private LocalDate dataInizio;
     private String durata;
     private List<Discente> discenti;
-    private DocenteDTO docenteDTO;
+    private String nomeDocenteDTO;
+    private String cognomeDocenteDTO;
+    private Integer idDocenteDTO;
 
-    public CorsoDTO(){
-        this.docenteDTO=new DocenteDTO();
-    }
+
     public void setNomeCorso(String nomeCorso){
         this.nomeCorso = nomeCorso;
     }
@@ -32,6 +32,18 @@ public class CorsoDTO {
     }
     public void setId(Integer id){
         this.id = id;
+    }
+    public void setDiscenti(List<Discente> discenti){
+        this.discenti = discenti;
+    }
+    public void setNomeDocenteDTO(String nome){
+        this.nomeDocenteDTO=nome;
+    }
+    public void setCognomeDocenteDTO(String cognome){
+        this.cognomeDocenteDTO=cognome;
+    }
+    public void setIdDocenteDTO(Integer id){
+        this.idDocenteDTO=id;
     }
     public String getNomeCorso(){
         return nomeCorso;
@@ -45,34 +57,17 @@ public class CorsoDTO {
     public List<Discente> getDiscenti(){
         return this.discenti;
     }
-    public void setDiscenti(List<Discente> discenti){
-        this.discenti = discenti;
-    }
     public int getId(){
         return id;
     }
-    public void setDocenteDTO(DocenteDTO docenteDTO){
-        this.docenteDTO=docenteDTO;
+    public String getNomeDocenteDTO(){
+        return nomeDocenteDTO;
     }
-    public DocenteDTO getDocenteDTO(){
-       return this.docenteDTO;
+    public String getCognomeDocenteDTO(){
+        return cognomeDocenteDTO;
     }
-    public void setDocenteDTOId(Integer id){
-        this.docenteDTO.setId(id);
+    public Integer getIdDocenteDTO(){
+        return idDocenteDTO;
     }
-    public void setDocenteDTONome(String nome){
-        this.docenteDTO.setNome(nome);
-    }
-    public void setDocenteDTOCognome(String cognome){
-        this.docenteDTO.setCognome(cognome);
-    }
-    public Integer getDocenteDTOId(){
-       return this.docenteDTO.getId();
-    }
-    public String getDocenteDTONome(){
-       return this.docenteDTO.getNome();
-    }
-    public String getDocenteDTOCognome(){
-       return this.docenteDTO.getCognome();
-    }
+
 }

@@ -6,6 +6,8 @@ import com.example.demo.service.CorsoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/corso")
 public class CorsoController {
@@ -20,4 +22,20 @@ public class CorsoController {
     }
     @GetMapping("/getCorsoById/{idCorso}")
     public CorsoDTO getCorsoByID(@PathVariable("idCorso")Integer id){return corsoService.getCorsoById(id); }
+    @DeleteMapping("/deleteCorso/{idCorso}")
+    public ResponseEntity<Void> deleteCorso(@PathVariable("idCorso") Integer id) {
+        corsoService.deleteCorso(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/updateCorso/{idCorso}")
+    public ResponseEntity<CorsoDTO> updateCorso(@PathVariable("idCorso") Integer id, @RequestBody CorsoDTO corsoDTO) {
+        CorsoDTO updatedCorso = corsoService.updateCorso(id, corsoDTO);
+        return ResponseEntity.ok(updatedCorso);
+    }
+   @GetMapping("/findAll")
+    public ResponseEntity<List<CorsoDTO>> findAll() {
+        List<CorsoDTO> corsi = corsoService.findAll();
+        return ResponseEntity.ok(corsi);
+    }
 }

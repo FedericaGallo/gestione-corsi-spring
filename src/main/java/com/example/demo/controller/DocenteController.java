@@ -29,6 +29,7 @@ public class DocenteController {
         DocenteDTO savedDocente = docenteService.addDocente(docenteDTO);
         return ResponseEntity.ok(savedDocente);
     }
+    //ResponseEntity è una classe di Spring che rappresenta l’intera risposta HTTP, inclusi codice di stato, intestazioni e corpo.
     @DeleteMapping("/deleteDocente/{idDocente}")
     public ResponseEntity<Void> deleteDocente(@PathVariable("idDocente") Integer id) {
         docenteService.deleteDocente(id);
