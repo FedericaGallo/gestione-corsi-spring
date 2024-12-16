@@ -60,7 +60,7 @@ public class CorsoService {
            Corso existingCorso = corso.get();
            existingCorso.setNomeCorso(corsoDTO.getNomeCorso());
            existingCorso.setDurata(corsoDTO.getDurata());
-           existingCorso.setDiscenti(corsoDTO.getDiscenti());
+           //existingCorso.setDiscenti(corsoDTO.getDiscenti());
            Docente docente =new Docente();
            //docente.setId(corsoDTO.getDocenteDTOId());
            existingCorso.setDocente(docente);

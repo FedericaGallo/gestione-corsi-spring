@@ -25,7 +25,7 @@ public class DocenteService {
         //Docente docente = docenteRepository.findById(id).get();
          // Se trova il docente converte l'entity in DTO e lo ritorna
         if (docente.isPresent()){
-            DocenteDTO docenteDTO = DocenteConverter.entityToDTO(docente.get());
+            DocenteDTO docenteDTO = DocenteConverter.entityToDTOGetDocente(docente.get());
             return docenteDTO;
         }else {
             throw new EntityNotFoundException();
@@ -48,7 +48,7 @@ public class DocenteService {
         List<Docente> docenti = docenteRepository.findAll();
         List<DocenteDTO> docenteDTOs = new ArrayList<>();
         for (Docente docente : docenti) {
-            DocenteDTO docenteDTO = DocenteConverter.entityToDTO(docente);
+            DocenteDTO docenteDTO = DocenteConverter.entityToDTOGetDocente(docente);
             docenteDTOs.add(docenteDTO);
         }
         return docenteDTOs;

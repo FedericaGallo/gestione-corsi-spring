@@ -9,10 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CorsoConverter {
+    public static CorsoDTO entityToDTOGetDocente (Corso corso){
+        CorsoDTO corsoDTO = new CorsoDTO();
+        corsoDTO.setNomeCorso(corso.getNomeCorso());
+        corsoDTO.setDataInizio(corso.getDataInizio());
+        corsoDTO.setDurata(corso.getDurata());
+        corsoDTO.setId(corso.getId());
+
+        return corsoDTO;
+    }
     public static CorsoDTO entityToDTO (Corso corso){
         CorsoDTO corsoDTO = new CorsoDTO();
         corsoDTO.setNomeCorso(corso.getNomeCorso());
-        corsoDTO.setDiscenti(corso.getDiscenti());
+        //corsoDTO.setDiscenti(corso.getDiscenti());
         corsoDTO.setDataInizio(corso.getDataInizio());
         corsoDTO.setDurata(corso.getDurata());
         corsoDTO.setId(corso.getId());
@@ -31,7 +40,7 @@ public class CorsoConverter {
     public static CorsoDTO entityToDTO2 (Corso corso){
         CorsoDTO corsoDTO = new CorsoDTO();
         corsoDTO.setNomeCorso(corso.getNomeCorso());
-        corsoDTO.setDiscenti(corso.getDiscenti());
+        //corsoDTO.setDiscenti(corso.getDiscenti());
         corsoDTO.setDataInizio(corso.getDataInizio());
         corsoDTO.setDurata(corso.getDurata());
         corsoDTO.setId(corso.getId());
@@ -44,7 +53,7 @@ public class CorsoConverter {
     public static Corso DTOToEntity(CorsoDTO corsoDTO){
         Corso corso = new Corso();
         corso.setNomeCorso(corsoDTO.getNomeCorso());
-        corso.setDiscenti(corsoDTO.getDiscenti());
+        //corso.setDiscenti(corsoDTO.getDiscenti());
         corso.setDataInizio(corsoDTO.getDataInizio());
         corso.setDurata(corsoDTO.getDurata());
         corso.setId(corsoDTO.getId());

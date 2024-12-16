@@ -15,4 +15,15 @@ public class DocenteConverter {
         }
         return docenteDTO;
     }
+
+    public static DocenteDTO entityToDTOGetDocente (Docente docente){
+        DocenteDTO docenteDTO = new DocenteDTO();
+        docenteDTO.setNome(docente.getNome());
+        docenteDTO.setCognome(docente.getCognome());
+        docenteDTO.setId(docente.getId());
+        for (int i = 0; i<docente.getCorsi().size(); i++){
+            docenteDTO.addCorsi(CorsoConverter.entityToDTOGetDocente(docente.getCorsi().get(i)));
+        }
+        return docenteDTO;
+    }
 }
