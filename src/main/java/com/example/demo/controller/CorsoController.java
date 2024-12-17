@@ -28,10 +28,14 @@ public class CorsoController {
         corsoService.deleteCorso(id);
         return ResponseEntity.noContent().build();
     }
-
     @PutMapping("/updateCorso/{idCorso}")
     public ResponseEntity<CorsoDTO> updateCorso(@PathVariable("idCorso") Integer id, @RequestBody CorsoDTO corsoDTO) {
         CorsoDTO updatedCorso = corsoService.updateCorso(id, corsoDTO);
+        return ResponseEntity.ok(updatedCorso);
+    }
+    @PutMapping("/addDiscente/{idCorso}")
+    public ResponseEntity<CorsoDTO> addDiscente(@PathVariable("idCorso") Integer id, @RequestBody CorsoDTO corsoDTO) {
+        CorsoDTO updatedCorso = corsoService.addDiscente(id, corsoDTO);
         return ResponseEntity.ok(updatedCorso);
     }
    @GetMapping("/findAll")

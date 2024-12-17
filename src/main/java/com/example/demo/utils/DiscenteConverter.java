@@ -18,6 +18,7 @@ public class DiscenteConverter {
         discenteDTO.setCognome(discente.getCognome());
         discenteDTO.setMatricola(discente.getMatricola());
         discenteDTO.setDataDiNascita(discente.getDataDiNascita());
+        //discenteDTO.setCorsiSeguiti(null);
         return discenteDTO;
     }
     public static DiscenteDTO entityToDTO2 (Discente discente){

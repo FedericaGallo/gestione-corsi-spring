@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,6 +28,7 @@ public class Corso {
 
     public Corso(){
         this.docente=new Docente();
+        this.discenti=new ArrayList<>();
     }
     public void setNomeCorso(String nomeCorso){
         this.nomeCorso = nomeCorso;
@@ -81,5 +83,10 @@ public class Corso {
     }
     public Integer getId(){
         return id;
+    }
+    public void addDiscenti(ArrayList<Discente> discenti){
+        for (Discente d : discenti ){
+            this.discenti.add(d);
+        }
     }
 }

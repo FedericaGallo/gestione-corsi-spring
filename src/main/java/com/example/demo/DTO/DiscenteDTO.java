@@ -2,11 +2,13 @@ package com.example.demo.DTO;
 
 import com.example.demo.entity.Corso;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DiscenteDTO {
     private Integer id;
     private String nome;
@@ -16,9 +18,9 @@ public class DiscenteDTO {
     private LocalDate dataDiNascita;
     private List<CorsoDTO> corsiSeguiti;
 
-    public DiscenteDTO(){
+    /*public DiscenteDTO(){
         this.corsiSeguiti=new ArrayList<>();
-    }
+    }*/
     public void setNome(String nome) {
         this.nome = nome;
     }

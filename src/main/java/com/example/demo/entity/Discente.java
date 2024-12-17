@@ -25,9 +25,9 @@ public class Discente {
 
     private List<Corso> corsiSeguiti;
 
-    public Discente(){
+    /*public Discente(){
         this.corsiSeguiti=new ArrayList<>();
-    }
+    }*/
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -66,6 +66,7 @@ public class Discente {
     public void setCorsiSeguiti(List<Corso> corsiSeguiti){
         this.corsiSeguiti=corsiSeguiti;
     }
+
     public List<Corso> getCorsiSeguiti(){
        return corsiSeguiti;
     }
