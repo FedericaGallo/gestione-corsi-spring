@@ -20,6 +20,18 @@ public class CorsoConverter {
 
         return corsoDTO;
     }
+
+    public static CorsoDTO entityToDTOGetDiscente (Corso corso){
+        CorsoDTO corsoDTO = new CorsoDTO();
+        corsoDTO.setNomeCorso(corso.getNomeCorso());
+        corsoDTO.setDataInizio(corso.getDataInizio());
+        corsoDTO.setDurata(corso.getDurata());
+        corsoDTO.setId(corso.getId());
+        corsoDTO.setNomeDocenteDTO(corso.getDocenteNome());
+        corsoDTO.setCognomeDocenteDTO(corso.getDocenteCognome());
+        corsoDTO.setIdDocenteDTO(corsoDTO.getIdDocenteDTO());
+        return corsoDTO;
+    }
     public static CorsoDTO entityToDTO (Corso corso){
         CorsoDTO corsoDTO = new CorsoDTO();
         corsoDTO.setNomeCorso(corso.getNomeCorso());
@@ -62,15 +74,24 @@ public class CorsoConverter {
 
     public static Corso DTOToEntity(CorsoDTO corsoDTO){
         Corso corso = new Corso();
-        corso.setNomeCorso(corsoDTO.getNomeCorso());
-        //corso.setDiscenti(corsoDTO.getDiscenti());
         corso.setDataInizio(corsoDTO.getDataInizio());
         corso.setDurata(corsoDTO.getDurata());
-        corso.setId(corsoDTO.getId());
         corso.setNomeCorso(corsoDTO.getNomeCorso());
-        //corso.setDocenteNome(corsoDTO.getDocenteDTONome());
-        // corso.setDocenteNome(corsoDT0.getDocenteDTOCognome());
-        // corso.setDocenteId(corsoDTO.getDocenteDTOId());
+
+        return corso;
+    }
+
+    public static Corso DTOToEntityUpdate(CorsoDTO corsoDTO, Corso corso){
+        if(corsoDTO.getNomeCorso().isEmpty() && corsoDTO.getNomeCorso() != null){
+            corso.setNomeCorso(corsoDTO.getNomeCorso());
+        }
+        if (corsoDTO.getDurata().isEmpty() && corsoDTO.getDurata() != null){
+            corso.setDurata(corsoDTO.getDurata());
+        }
+        if (corsoDTO.getDataInizio() != null){
+            corso.setDataInizio(corsoDTO.getDataInizio());
+        }
+
         return corso;
     }
 }

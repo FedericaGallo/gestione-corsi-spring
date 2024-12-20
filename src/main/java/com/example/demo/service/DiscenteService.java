@@ -7,32 +7,43 @@ import com.example.demo.entity.Discente;
 import com.example.demo.repository.DiscenteRepository;
 import com.example.demo.utils.CorsoConverter;
 import com.example.demo.utils.DiscenteConverter;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DiscenteService {
     private final DiscenteRepository discenteRepository;
-    public DiscenteService(DiscenteRepository discenteRepository){
-        this.discenteRepository=discenteRepository;
+
+    public DiscenteService(DiscenteRepository discenteRepository) {
+        this.discenteRepository = discenteRepository;
     }
-    public DiscenteDTO addDiscente(DiscenteDTO discenteDTO){
-        Discente discente= new Discente();
-        discente.setNome(discenteDTO.getNome());
-        discente.setCognome(discenteDTO.getCognome());
-        discente.setMatricola(discenteDTO.getMatricola());
-        discente.setDataDiNascita(discenteDTO.getDataDiNascita());
+
+    public DiscenteDTO addDiscente(DiscenteDTO discenteDTO) {
+        Discente discente = DiscenteConverter.DTOToEntity(discenteDTO);
 
         Discente savedDiscente = discenteRepository.save(discente);
-        DiscenteDTO discenteDTOSaved= new DiscenteDTO();
-        discenteDTOSaved.setNome(savedDiscente.getNome());
-        discenteDTOSaved.setCognome(savedDiscente.getCognome());
-        discenteDTOSaved.setMatricola(savedDiscente.getMatricola());
-        discenteDTOSaved.setDataDiNascita(savedDiscente.getDataDiNascita());
-        discenteDTOSaved.setId(savedDiscente.getId());
+        DiscenteDTO discenteDTOSaved = DiscenteConverter.entityToDTOGetDiscente(savedDiscente);
         return discenteDTOSaved;
 
+    }
+
+    public DiscenteDTO getDiscenteById(Integer id) {
+        Discente discente = discenteRepository.getById(id);
+        return DiscenteConverter.entityToDTOGetDiscente(discente);
+    }
+
+    public void deleteDiscente(Integer id) {
+        Optional<Discente> discente = discenteRepository.findById(id);
+        if (discente.isPresent()) {
+            discente.get().getCorsiSeguiti().clear();
+            discenteRepository.save(discente.get());
+            discenteRepository.delete(discente.get());
+        } else {
+            throw new EntityNotFoundException("Discente not found with id" + id);
+        }
     }
 }

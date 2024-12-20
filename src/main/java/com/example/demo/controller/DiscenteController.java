@@ -18,4 +18,14 @@ public class DiscenteController {
         DiscenteDTO savedDiscente = discenteService.addDiscente(discenteDTO);
         return ResponseEntity.ok(savedDiscente);
     }
+    @GetMapping("/getDiscenteById/{id}")
+    public ResponseEntity<DiscenteDTO> getDiscente(@PathVariable("id") Integer id){
+        DiscenteDTO discente = discenteService.getDiscenteById(id);
+        return ResponseEntity.ok(discente);
+    }
+    @DeleteMapping("/deleteDiscente/{id}")
+    public ResponseEntity<Void> deleteDiscente(@PathVariable("id") Integer id){
+        discenteService.deleteDiscente(id);
+        return ResponseEntity.noContent().build();
+    }
 }

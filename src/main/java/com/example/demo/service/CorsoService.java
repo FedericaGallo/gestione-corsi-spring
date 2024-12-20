@@ -7,6 +7,7 @@ import com.example.demo.entity.Corso;
 import com.example.demo.entity.Discente;
 import com.example.demo.entity.Docente;
 import com.example.demo.repository.CorsoRepository;
+import com.example.demo.repository.DiscenteRepository;
 import com.example.demo.repository.DocenteRepository;
 import com.example.demo.utils.CorsoConverter;
 import com.example.demo.utils.DiscenteConverter;
@@ -21,21 +22,20 @@ import java.util.Optional;
 @Service
 public class CorsoService {
     private final CorsoRepository corsoRepository;
-    public CorsoService( CorsoRepository corsoRepository){
+    private final DocenteRepository docenteRepository;
+    private final DiscenteRepository discenteRepository;
+    public CorsoService( CorsoRepository corsoRepository, DocenteRepository docenteRepository, DiscenteRepository discenteRepository){
         this.corsoRepository=corsoRepository;
+        this.docenteRepository = docenteRepository;
+        this.discenteRepository = discenteRepository;
     }
     public CorsoDTO addCorso(CorsoDTO corsoDTO) {
 
-        Corso corso = new Corso();
-        corso.setDurata(corsoDTO.getDurata());
-        corso.setNomeCorso(corsoDTO.getNomeCorso());
-        corso.setDataInizio(corsoDTO.getDataInizio());
-        corso.setDocenteId(corsoDTO.getIdDocenteDTO());
+        Corso corso = CorsoConverter.DTOToEntity(corsoDTO);
+        Docente docente = docenteRepository.findById(corsoDTO.getIdDocenteDTO()).orElseThrow(() -> new RuntimeException("docente not fount"));
+        corso.setDocente(docente);
         Corso savedCorso = corsoRepository.save(corso);
-        //System.out.println("ecco l'id "+ savedCorso.getId());
         CorsoDTO savedCorsoDTO = getCorsoById(savedCorso.getId());
-        //System.out.println("ecco il cognome" + savedCorsoDTO.getCognomeDocenteDTO());
-        //CorsoDTO savedCorsoDTO= CorsoConverter.entityToDTO(savedCorso);
         return savedCorsoDTO;
 
     }
@@ -43,8 +43,6 @@ public class CorsoService {
         Optional<Corso> corso = corsoRepository.findById(id);
         if (corso.isPresent()){
             CorsoDTO corsoDTO = CorsoConverter.entityToDTO(corso.get());
-            System.out.println(corso.get().getDocenteNome());
-            //System.out.println("CorsoDTO ID: " + corsoDTO.getDocenteDTOId());
             return corsoDTO;
         }else {
             throw new EntityNotFoundException();
@@ -54,6 +52,8 @@ public class CorsoService {
     public void deleteCorso(Integer id){
         Optional<Corso> corso = corsoRepository.findById(id);
         if(corso.isPresent()){
+            corso.get().getDiscenti().clear();
+            corsoRepository.save(corso.get());
             corsoRepository.delete(corso.get());
         }else{
             throw new EntityNotFoundException("Corso not found with id " + id);
@@ -64,11 +64,8 @@ public class CorsoService {
         Optional<Corso> corso = corsoRepository.findById(id);
         if (corso.isPresent()){
            Corso existingCorso = corso.get();
-           existingCorso.setNomeCorso(corsoDTO.getNomeCorso());
-           existingCorso.setDurata(corsoDTO.getDurata());
-           //existingCorso.setDiscenti(corsoDTO.getDiscenti());
-           Docente docente =new Docente();
-           docente.setId(corsoDTO.getIdDocenteDTO());
+           Corso corsoToSave = CorsoConverter.DTOToEntityUpdate(corsoDTO, existingCorso);
+           Docente docente = docenteRepository.findById(corsoDTO.getIdDocenteDTO()).orElseThrow(()-> new RuntimeException("docente not found"));
            existingCorso.setDocente(docente);
            Corso updateCorso = corsoRepository.save(existingCorso);
            return CorsoConverter.entityToDTO(updateCorso);
@@ -87,8 +84,7 @@ public class CorsoService {
             List<Discente> discenti= existingCorso.getDiscenti();
             //converto discentiDTO in discenti assegnando id e aggiungo a discenti
             for (DiscenteDTO d : discentiDTO){
-                Discente discente = new Discente();
-                discente.setId(d.getId());
+                Discente discente = discenteRepository.findById(d.getId()).orElseThrow(()-> new RuntimeException("discente not found"));
                 discenti.add(discente);
             }
 

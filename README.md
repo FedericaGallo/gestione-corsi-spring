@@ -1,5 +1,5 @@
 ## Contratto API
-
+## Docente
 ### Richiesta
 * URI: /docente/getDocenteById/{id}
 * verbo HTTP:GET
@@ -80,6 +80,7 @@
 * Corpo: nessuno
 ### Risposta
 
+## Corso
 ### Richiesta
 * URI: /corso/addCorso
 * verbo HTTP:POST
@@ -88,21 +89,24 @@
 {
     "nomeCorso":"spagnolo",
     "dataInizio": "2023/09/07",
-    "durata":"4 masi",
-    "idDocenteDTO": "1"
+    "durata":"4 mesi",
+    "idDocenteDTO": "2"
 }
 ```
 ### Risposta
 ```http
 {
-"id": 79,
-"nomeCorso": "spagnolo",
-"dataInizio": "2023/09/07",
-"durata": "4 masi",
-"discenti": [],
-"idDocenteDTO": 2
+    "id": 8,
+    "nomeCorso": "spagnolo",
+    "dataInizio": "2023/09/07",
+    "durata": "4 mesi",
+    "discenti": [],
+    "nomeDocenteDTO": "Prezioso",
+    "cognomeDocenteDTO": "Alex",
+    "idDocenteDTO": 2
 }
 ```
+## Corso
 ### Richiesta
 * URI: /corso/updateCorso/{id}
 * verbo HTTP:PUT
@@ -111,41 +115,34 @@
 {
     "nomeCorso":"spagnolo",
     "dataInizio": "2023/09/07",
-    "durata":"4 masi",
-    "idDocenteDTO": "1"
+    "durata":"4 mesi",
+    "idDocenteDTO": "6"
 }
 ```
 ### Risposta
 ```http
 {
-    "id": 21,
+    "id": 7,
     "nomeCorso": "spagnolo",
-    "dataInizio": "2021/04/30",
-    "durata": "4 masi",
-    "idDocenteDTO": 2
-}
-```
-### Richiesta
-* URI: /discente/addDiscente/
-* verbo HTTP:POST
-* Corpo:
-```http
-{
-    "nome":"Federica",
-    "cognome": "Gallo",
-    "matricola":"SH400",
-    "dataDiNascita": "1993/08/08"
-}
-```
-### Risposta
-```http
-{
-    "id": 13,
-    "nome": "Federica",
-    "cognome": "Gallo",
-    "matricola": "SH400",
-    "dataDiNascita": "1993/08/08",
-    "corsiSeguiti": []
+    "dataInizio": "2023/09/07",
+    "durata": "4 mesi",
+    "discenti": [
+        {
+            "id": 10,
+            "nome": "Federica",
+            "cognome": "Gallo",
+            "matricola": "SH400"
+        },
+        {
+            "id": 11,
+            "nome": "Maria",
+            "cognome": "Verdi",
+            "matricola": "SH400"
+        }  
+    ],
+    "nomeDocenteDTO": "Mario",
+    "cognomeDocenteDTO": "Rossi",
+    "idDocenteDTO": 6
 }
 ```
 ### Richiesta
@@ -185,5 +182,63 @@
     "nomeDocenteDTO": "Stefano",
     "cognomeDocenteDTO": "Rossi",
     "idDocenteDTO": 2
+}
+```
+## discente 
+
+### Richiesta
+* URI: /discente/addDiscente/
+* verbo HTTP:POST
+* Corpo:
+```http
+{
+    "nome":"Federica",
+    "cognome": "Gallo",
+    "matricola":"SH400",
+    "dataDiNascita": "1993/08/08"
+}
+```
+### Risposta
+```http
+{
+    "id": 13,
+    "nome": "Federica",
+    "cognome": "Gallo",
+    "matricola": "SH400",
+    "dataDiNascita": "1993/08/08"
+}
+```
+### Richiesta
+* URI: /discente/getDiscenteById/3
+* verbo HTTP:POST
+* Corpo:nessuno
+### Risposta
+```http
+{
+    "id": 3,
+    "nome": "Gianni",
+    "cognome": "Blu",
+    "matricola": "456T",
+    "dataDiNascita": "1990/08/04",
+    "corsiSeguiti": [
+        {
+            "id": 2,
+            "nomeCorso": "russo",
+            "dataInizio": "2025/03/01",
+            "durata": "3 mesi",
+            "discenti": [],
+            "nomeDocenteDTO": "Alex",
+            "cognomeDocenteDTO": "Verdi"
+        },
+        {
+            "id": 2,
+            "nomeCorso": "java",
+            "dataInizio": "2026/03/01",
+            "durata": "3 mesi",
+            "discenti": [],
+            "nomeDocenteDTO": "Alex",
+            "cognomeDocenteDTO": "Verdi"
+        }
+    ]
 }
 ```
