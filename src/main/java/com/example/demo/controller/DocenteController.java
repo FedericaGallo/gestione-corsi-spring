@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.DTO.DocenteDTO;
+import com.example.demo.DTO.DocenteProva;
 import com.example.demo.entity.Docente;
 import com.example.demo.repository.DocenteRepository;
 import com.example.demo.service.DocenteService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController //gestisce richieste REST
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/docente") //tutte le richieste che cominciano con /docente
 public class DocenteController {
     private final DocenteService docenteService;
@@ -35,16 +37,20 @@ public class DocenteController {
         docenteService.deleteDocente(id);
         return ResponseEntity.noContent().build();
     }
-
     @PutMapping("/updateDocente/{idDocente}")
     public ResponseEntity<DocenteDTO> updateDocente(@PathVariable("idDocente") Integer id, @RequestBody DocenteDTO docenteDTO) {
         DocenteDTO updatedDocente = docenteService.updateDocente(id, docenteDTO);
         return ResponseEntity.ok(updatedDocente);
     }
-    @GetMapping("/findAll")
+    /*@GetMapping("/findAll")
     public ResponseEntity<List<DocenteDTO>> findAll() {
         List<DocenteDTO> docenti = docenteService.findAll();
         return ResponseEntity.ok(docenti);
+    }*/
+    @GetMapping("/findAll")
+    public ResponseEntity<List<DocenteProva>> findAll() {
+        List<DocenteProva> docenti = docenteService.findAllProva();
+        System.out.println(docenti.get(0).getPhoto());
+        return ResponseEntity.ok(docenti);
     }
-
 }

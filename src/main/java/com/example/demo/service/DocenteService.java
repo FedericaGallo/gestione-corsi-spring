@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.DTO.DocenteDTO;
+import com.example.demo.DTO.DocenteProva;
 import com.example.demo.repository.DocenteRepository;
 import com.example.demo.entity.Docente;
 import com.example.demo.utils.DocenteConverter;
@@ -43,7 +44,7 @@ public class DocenteService {
         return savedDocenteDTO;
     }
 
-    public List<DocenteDTO> findAll() {
+    /*public List<DocenteDTO> findAll() {
         List<Docente> docenti = docenteRepository.findAll();
         List<DocenteDTO> docenteDTOs = new ArrayList<>();
         for (Docente docente : docenti) {
@@ -51,7 +52,18 @@ public class DocenteService {
             docenteDTOs.add(docenteDTO);
         }
         return docenteDTOs;
+    }*/
+
+     public List<DocenteProva> findAllProva() {
+        List<Docente> docenti = docenteRepository.findAll();
+        List<DocenteProva> docenteDTOs = new ArrayList<>();
+        for (Docente docente : docenti) {
+            DocenteProva docenteDTO = DocenteConverter.entityToDTOprova(docente);
+            docenteDTOs.add(docenteDTO);
+        }
+        return docenteDTOs;
     }
+
 
     public DocenteDTO updateDocente(Integer id, DocenteDTO docenteDTO) {
         Optional<Docente> docente = docenteRepository.findById(id);

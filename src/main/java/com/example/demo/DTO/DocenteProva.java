@@ -3,20 +3,23 @@ package com.example.demo.DTO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DocenteDTO {
-private Integer id;
-private String nome;
-private String cognome;
-private String photo;
-private List<CorsoDTO> corsi;
+public class DocenteProva {
+    private Integer id;
+    private String nome;
+    private String cognome;
+    private String photo;
 
-public DocenteDTO(){corsi = new ArrayList<>();}
+
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public List<CorsoDTO> getCorsi() {
-        return corsi;
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getPhoto() {
+        return this.photo;
     }
 
     public String getNome() {
@@ -39,11 +42,4 @@ public DocenteDTO(){corsi = new ArrayList<>();}
         return id;
     }
 
-    public void setCorsi(List<CorsoDTO> corsi) {
-        this.corsi = corsi;
-    }
-
-    public void addCorsi(CorsoDTO corso){
-        this.corsi.add(corso);
-    }
 }
