@@ -15,7 +15,7 @@ public class CorsoConverter {
         CorsoDTO corsoDTO = new CorsoDTO();
         corsoDTO.setNomeCorso(corso.getNomeCorso());
         corsoDTO.setDataInizio(corso.getDataInizio());
-        corsoDTO.setDurata(corso.getDurata());
+        corsoDTO.setDataFine(corso.getDataFine());
         corsoDTO.setId(corso.getId());
 
         return corsoDTO;
@@ -25,7 +25,7 @@ public class CorsoConverter {
         CorsoDTO corsoDTO = new CorsoDTO();
         corsoDTO.setNomeCorso(corso.getNomeCorso());
         corsoDTO.setDataInizio(corso.getDataInizio());
-        corsoDTO.setDurata(corso.getDurata());
+        corsoDTO.setDataFine(corso.getDataFine());
         corsoDTO.setId(corso.getId());
         corsoDTO.setNomeDocenteDTO(corso.getDocenteNome());
         corsoDTO.setCognomeDocenteDTO(corso.getDocenteCognome());
@@ -36,7 +36,7 @@ public class CorsoConverter {
         CorsoDTO corsoDTO = new CorsoDTO();
         corsoDTO.setNomeCorso(corso.getNomeCorso());
         corsoDTO.setDataInizio(corso.getDataInizio());
-        corsoDTO.setDurata(corso.getDurata());
+        corsoDTO.setDataFine(corso.getDataFine());
         corsoDTO.setId(corso.getId());
         corsoDTO.setNomeDocenteDTO(corso.getDocenteCognome());
         corsoDTO.setCognomeDocenteDTO(corso.getDocenteNome());
@@ -55,7 +55,7 @@ public class CorsoConverter {
         CorsoDTO corsoDTO = new CorsoDTO();
         corsoDTO.setNomeCorso(corso.getNomeCorso());
         corsoDTO.setDataInizio(corso.getDataInizio());
-        corsoDTO.setDurata(corso.getDurata());
+        corsoDTO.setDataFine(corso.getDataFine());
         corsoDTO.setId(corso.getId());
         corsoDTO.setNomeDocenteDTO(corso.getDocenteCognome());
         corsoDTO.setCognomeDocenteDTO(corso.getDocenteNome());
@@ -75,7 +75,7 @@ public class CorsoConverter {
     public static Corso DTOToEntity(CorsoDTO corsoDTO){
         Corso corso = new Corso();
         corso.setDataInizio(corsoDTO.getDataInizio());
-        corso.setDurata(corsoDTO.getDurata());
+        corso.setDataFine(corsoDTO.getDataFine());
         corso.setNomeCorso(corsoDTO.getNomeCorso());
 
         return corso;
@@ -85,8 +85,8 @@ public class CorsoConverter {
         if(corsoDTO.getNomeCorso().isEmpty() && corsoDTO.getNomeCorso() != null){
             corso.setNomeCorso(corsoDTO.getNomeCorso());
         }
-        if (corsoDTO.getDurata().isEmpty() && corsoDTO.getDurata() != null){
-            corso.setDurata(corsoDTO.getDurata());
+        if (corsoDTO.getDataFine() != null){
+            corso.setDataFine(corsoDTO.getDataFine());
         }
         if (corsoDTO.getDataInizio() != null){
             corso.setDataInizio(corsoDTO.getDataInizio());

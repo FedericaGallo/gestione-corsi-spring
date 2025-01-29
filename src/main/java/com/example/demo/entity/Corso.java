@@ -1,6 +1,8 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,8 @@ public class Corso {
     private String nomeCorso;
     @Column(name="data_inizio")
     private LocalDate dataInizio;
-    private String durata;
+    @Column(name="data_fine")
+    private LocalDate dataFine;
     @ManyToOne
     @JoinColumn(name = "docente_id")
     private Docente docente;
@@ -36,8 +39,8 @@ public class Corso {
     public void setDataInizio(LocalDate dataInizio){
         this.dataInizio = dataInizio;
     }
-    public void setDurata(String durata){
-        this.durata = durata;
+    public void setDataFine(LocalDate dataFine){
+        this.dataFine = dataFine;
     }
     public void setDocente(Docente docente){
         this.docente = docente;
@@ -51,8 +54,8 @@ public class Corso {
     public LocalDate getDataInizio(){
         return dataInizio;
     }
-    public String getDurata(){
-        return durata;
+    public LocalDate getDataFine(){
+        return dataFine;
     }
     public Integer getDocenteId(){
         return docente.getId();

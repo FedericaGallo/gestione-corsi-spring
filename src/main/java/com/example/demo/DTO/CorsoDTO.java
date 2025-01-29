@@ -13,9 +13,10 @@ import java.util.List;
 public class CorsoDTO {
     private Integer id;
     private String nomeCorso;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataInizio;
-    private String durata;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dataFine;
     private List<DiscenteDTO> discenti;
     private String nomeDocenteDTO;
     private String cognomeDocenteDTO;
@@ -30,8 +31,8 @@ public CorsoDTO(){
     public void setDataInizio(LocalDate dataInizio){
         this.dataInizio = dataInizio;
     }
-    public void setDurata(String durata){
-        this.durata = durata;
+    public void setDataFine(LocalDate dataFine){
+        this.dataFine = dataFine;
     }
     public void setId(Integer id){
         this.id = id;
@@ -54,8 +55,8 @@ public CorsoDTO(){
     public LocalDate getDataInizio(){
         return dataInizio;
     }
-    public String getDurata(){
-        return durata;
+    public LocalDate getDataFine(){
+        return dataFine;
     }
     public List<DiscenteDTO> getDiscenti(){
         return this.discenti;
