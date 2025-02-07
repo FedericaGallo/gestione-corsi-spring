@@ -5,6 +5,7 @@ import com.example.demo.DTO.DocenteProva;
 import com.example.demo.entity.Docente;
 import com.example.demo.repository.DocenteRepository;
 import com.example.demo.service.DocenteService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -48,9 +49,15 @@ public class DocenteController {
         return ResponseEntity.ok(docenti);
     }*/
     @GetMapping("/findAll")
-    public ResponseEntity<List<DocenteProva>> findAll() {
-        List<DocenteProva> docenti = docenteService.findAllProva();
-        System.out.println(docenti.get(0).getPhoto());
+    public ResponseEntity<Page<DocenteProva>> findAll() {
+        Page<DocenteProva> docenti = docenteService.findAllProva();
+        //System.out.println(docenti.get(0).getPhoto());
+        return ResponseEntity.ok(docenti);
+    }
+
+    @GetMapping("/findAllByNome")
+    public ResponseEntity<Page<Docente>> findAllByNome(@RequestParam String nome){
+        Page<Docente> docenti = docenteService.findAllByNome(nome);
         return ResponseEntity.ok(docenti);
     }
 }

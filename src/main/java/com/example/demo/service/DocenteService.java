@@ -6,6 +6,7 @@ import com.example.demo.repository.DocenteRepository;
 import com.example.demo.entity.Docente;
 import com.example.demo.utils.DocenteConverter;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,19 +17,20 @@ import java.util.Optional;
 public class DocenteService {
     //Spring fa un'istanza di DocenteService
     private final DocenteRepository docenteRepository;
-    public DocenteService( DocenteRepository docenteRepository){
-        this.docenteRepository=docenteRepository;
+
+    public DocenteService(DocenteRepository docenteRepository) {
+        this.docenteRepository = docenteRepository;
     }
 
-     public DocenteDTO getDocenteById(Integer id) {
+    public DocenteDTO getDocenteById(Integer id) {
 
         Optional<Docente> docente = docenteRepository.findById(id);
         //Docente docente = docenteRepository.findById(id).get();
-         // Se trova il docente converte l'entity in DTO e lo ritorna
-        if (docente.isPresent()){
+        // Se trova il docente converte l'entity in DTO e lo ritorna
+        if (docente.isPresent()) {
             DocenteDTO docenteDTO = DocenteConverter.entityToDTOGetDocente(docente.get());
             return docenteDTO;
-        }else {
+        } else {
             throw new EntityNotFoundException();
         }
     }
@@ -54,14 +56,16 @@ public class DocenteService {
         return docenteDTOs;
     }*/
 
-     public List<DocenteProva> findAllProva() {
-        List<Docente> docenti = docenteRepository.findAll();
-        List<DocenteProva> docenteDTOs = new ArrayList<>();
+    public  Page<DocenteProva> findAllProva() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("nome").ascending());
+        Page<Docente> docenti = docenteRepository.findAll(pageable);
+        List<DocenteProva> docentiDTOs = new ArrayList<>();
         for (Docente docente : docenti) {
             DocenteProva docenteDTO = DocenteConverter.entityToDTOprova(docente);
-            docenteDTOs.add(docenteDTO);
+            docentiDTOs.add(docenteDTO);
         }
-        return docenteDTOs;
+        return new PageImpl<>(docentiDTOs, PageRequest.of(docenti.getNumber(), docenti.getSize(), docenti.getSort()), docenti.getTotalElements());
+
     }
 
 
@@ -88,4 +92,9 @@ public class DocenteService {
         }
     }
 
+    public Page<Docente> findAllByNome(String nome) {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("nome").ascending());
+        Page<Docente> docenti = docenteRepository.findAllByNome(nome, pageable);
+        return docenti;
+    }
 }
