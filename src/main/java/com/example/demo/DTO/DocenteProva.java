@@ -7,6 +7,7 @@ public class DocenteProva {
     private Integer id;
     private String nome;
     private String cognome;
+    private String descrizione;
     private String photo;
 
 
@@ -40,6 +41,13 @@ public class DocenteProva {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getDescrizione(){
+        return descrizione;
+    }
+    public void setDescrizione(String descrizione){
+        this.descrizione = descrizione;
     }
 
 }

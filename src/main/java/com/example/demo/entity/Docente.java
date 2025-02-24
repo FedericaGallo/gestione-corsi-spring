@@ -13,6 +13,8 @@ public class Docente {
     private Integer id;
     private String nome;
     private String cognome;
+    @Column(columnDefinition = "TEXT")
+    private String descrizione;
     @OneToMany(mappedBy = "docente", cascade = CascadeType.REMOVE)
     private List<Corso> corsi;
 
@@ -48,6 +50,12 @@ public class Docente {
         return id;
     }
 
+    public String getDescrizione(){
+        return descrizione;
+    }
+    public void setDescrizione(String descrizione){
+        this.descrizione = descrizione;
+    }
     public void setCorsi(List<Corso> corsi) {
         this.corsi = corsi;
     }

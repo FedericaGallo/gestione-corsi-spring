@@ -11,6 +11,7 @@ public class DocenteConverter {
         docenteProva.setNome(docente.getNome());
         docenteProva.setCognome(docente.getCognome());
         docenteProva.setId(docente.getId());
+        docenteProva.setDescrizione(docente.getDescrizione());
         docenteProva.setPhoto("Newton.jpg");
         /*DocenteDTO docenteDTO = new DocenteDTO();
         docenteDTO.setNome(docente.getNome());
@@ -34,6 +35,7 @@ public class DocenteConverter {
         DocenteDTO docenteDTO = new DocenteDTO();
         docenteDTO.setNome(docente.getNome());
         docenteDTO.setCognome(docente.getCognome());
+        docenteDTO.setDescrizione(docente.getDescrizione());
         docenteDTO.setId(docente.getId());
         for (int i = 0; i<docente.getCorsi().size(); i++){
             docenteDTO.addCorsi(CorsoConverter.entityToDTOGetDocente(docente.getCorsi().get(i)));

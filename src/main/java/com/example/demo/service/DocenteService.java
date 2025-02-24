@@ -40,6 +40,7 @@ public class DocenteService {
         Docente docente = new Docente();
         docente.setNome(docenteDTO.getNome());
         docente.setCognome(docenteDTO.getCognome());
+        docente.setDescrizione(docenteDTO.getDescrizione());
         Docente savedDocente = docenteRepository.save(docente);
         DocenteDTO savedDocenteDTO = DocenteConverter.entityToDTO(savedDocente);
 
@@ -56,8 +57,8 @@ public class DocenteService {
         return docenteDTOs;
     }*/
 
-    public  Page<DocenteProva> findAllProva() {
-        Pageable pageable = PageRequest.of(0, 10, Sort.by("nome").ascending());
+    public  Page<DocenteProva> findAllProva(int page) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("nome").ascending());
         Page<Docente> docenti = docenteRepository.findAll(pageable);
         List<DocenteProva> docentiDTOs = new ArrayList<>();
         for (Docente docente : docenti) {
@@ -75,6 +76,7 @@ public class DocenteService {
             Docente existingDocente = docente.get();
             existingDocente.setNome(docenteDTO.getNome());
             existingDocente.setCognome(docenteDTO.getCognome());
+            existingDocente.setDescrizione(docenteDTO.getDescrizione());
             Docente updatedDocente = docenteRepository.save(existingDocente);
             return DocenteConverter.entityToDTO(updatedDocente);
         } else {

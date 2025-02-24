@@ -29,6 +29,7 @@ public class DocenteController {
     //Mappa le richieste HTTP POST all’endpoint /addDocente.
     @PostMapping("/addDocente")
     public ResponseEntity<DocenteDTO> addDocente(@RequestBody DocenteDTO docenteDTO) {
+        System.out.println(docenteDTO.getDescrizione());
         DocenteDTO savedDocente = docenteService.addDocente(docenteDTO);
         return ResponseEntity.ok(savedDocente);
     }
@@ -49,8 +50,8 @@ public class DocenteController {
         return ResponseEntity.ok(docenti);
     }*/
     @GetMapping("/findAll")
-    public ResponseEntity<Page<DocenteProva>> findAll() {
-        Page<DocenteProva> docenti = docenteService.findAllProva();
+    public ResponseEntity<Page<DocenteProva>> findAll(@RequestParam(defaultValue = "0") int page) {
+        Page<DocenteProva> docenti = docenteService.findAllProva(page);
         //System.out.println(docenti.get(0).getPhoto());
         return ResponseEntity.ok(docenti);
     }
