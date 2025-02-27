@@ -18,8 +18,7 @@ public class Ruolo {
     private String nome;
     @ManyToMany(mappedBy = "ruoli")
     private List<Utente> utenti;
-    private Boolean ruoloDiscente;
-    private Boolean ruoloDocente;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDate createdDate;
@@ -27,11 +26,9 @@ public class Ruolo {
     @Column(insertable = false)
     private LocalDate lastModifiedDate;
     public Ruolo(){}
-    public Ruolo(String nome, Boolean ruoloDiscente, Boolean ruoloDocente) {
+    public Ruolo(String nome) {
         super();
         this.nome = nome;
-        this.ruoloDiscente = ruoloDiscente;
-        this.ruoloDocente = ruoloDocente;
     }
     // Getter e Setter
     public UUID getId() {
@@ -50,22 +47,6 @@ public class Ruolo {
         this.nome = nome;
     }
 
-    public Boolean getRuoloDocente() {
-        return ruoloDocente;
-    }
-
-    public void setRuoloDocente(Boolean ruoloDocente) {
-        this.ruoloDocente = ruoloDocente;
-    }
-
-    public Boolean getRuoloDiscnete() {
-        return ruoloDiscente;
-    }
-
-    public void setRuoloDiscente(Boolean ruoloDiscente) {
-        this.ruoloDiscente = ruoloDiscente;
-    }
-
     // Builder
     public static Builder builder() {
         return new Builder();
@@ -74,8 +55,6 @@ public class Ruolo {
     public static class Builder {
         private UUID id;
         private String nome;
-        private Boolean ruoloDocente;
-        private Boolean ruoloDiscente;
 
         public Builder id(UUID id) {
             this.id = id;
@@ -87,22 +66,11 @@ public class Ruolo {
             return this;
         }
 
-        public Builder ruoloDocente(Boolean ruoloDocente) {
-            this.ruoloDocente = ruoloDocente;
-            return this;
-        }
-
-        public Builder ruoloDiscente(Boolean ruoloDiscente) {
-            this.ruoloDiscente = ruoloDiscente;
-            return this;
-        }
 
         public Ruolo build() {
             Ruolo ruolo = new Ruolo();
             ruolo.setId(this.id);
             ruolo.setNome(this.nome);
-            ruolo.setRuoloDocente(this.ruoloDocente);
-            ruolo.setRuoloDiscente(this.ruoloDiscente);
             return ruolo;
         }
     }

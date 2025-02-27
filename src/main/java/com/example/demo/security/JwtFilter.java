@@ -23,8 +23,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private JwtService jwtService;
     private UserDetailsService userDetailsService;
-    public JwtFilter(JwtService jwtService){
+    public JwtFilter(JwtService jwtService, UserDetailsService userDetailsService){
         this.jwtService = jwtService;
+        this.userDetailsService = userDetailsService;
     }
     public JwtFilter(){}
     @Override
@@ -32,7 +33,7 @@ public class JwtFilter extends OncePerRequestFilter {
             @NotNull HttpServletRequest request,
             @NotNull HttpServletResponse response,
             @NotNull FilterChain filterChain) throws ServletException, IOException {
-if(request.getServletPath().contains("/api")){
+if(request.getServletPath().contains("/docente")){
     filterChain.doFilter(request, response);
     return;
 }

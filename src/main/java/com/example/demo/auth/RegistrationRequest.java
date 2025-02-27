@@ -57,3 +57,6 @@ public class RegistrationRequest {
     }
 
 }
+/*La classe RegistrationRequest serve a rappresentare i dati che un utente
+deve fornire per registrarsi al sistema. In altre parole, è un oggetto che raccoglie
+tutte le informazioni necessarie per creare un nuovo account utente. */

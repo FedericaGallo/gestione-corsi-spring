@@ -47,7 +47,7 @@ public Claims extractAllClaims(String token){
         return generateToken (new HashMap<>(), userDetails);
     }
 
-    private String generateToken (Map<String, Object> claims, UserDetails userDetails){
+    public String generateToken(Map<String, Object> claims, UserDetails userDetails){
         return buildToken (claims, userDetails, jwtExpiration);
     }
     private String buildToken(
@@ -68,6 +68,8 @@ public Claims extractAllClaims(String token){
                 .signWith(getSignInKey())
                 .compact();
     }
+
+
 public boolean isTokenValid(String token, UserDetails userDetails){
      final String username = extractUsername(token);
      return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
@@ -82,6 +84,15 @@ public Date extractExpiration(String token){
     private Key getSignInKey(){
        byte[] KeyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(KeyBytes);
+    }
+
+    public Date getExpirationDate(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(getSignInKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getExpiration();
     }
 }
 

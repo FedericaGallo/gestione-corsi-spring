@@ -57,7 +57,7 @@ public class DocenteService {
         return docenteDTOs;
     }*/
 
-    public  Page<DocenteProva> findAllProva(int page) {
+    public Page<DocenteProva> findAllProva(int page) {
         Pageable pageable = PageRequest.of(page, 10, Sort.by("nome").ascending());
         Page<Docente> docenti = docenteRepository.findAll(pageable);
         List<DocenteProva> docentiDTOs = new ArrayList<>();
