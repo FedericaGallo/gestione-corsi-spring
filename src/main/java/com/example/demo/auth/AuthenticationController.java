@@ -22,7 +22,6 @@ public class AuthenticationController {
     public ResponseEntity<?> register(
             @RequestBody @Valid RegistrationRequest request
     ) throws MessagingException {
-        System.out.println(request.getCognome());
         service.register(request);
         return ResponseEntity.accepted().build();
     }
@@ -30,8 +29,7 @@ public class AuthenticationController {
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody @Valid AuthenticationRequest request) {
-        AuthenticationResponse response = service.authenticate(request);
-        System.out.println(response.getExpirationDate());
+
         return ResponseEntity.ok(service.authenticate(request));
     }
 

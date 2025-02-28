@@ -21,23 +21,24 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 @Service
 public class JwtFilter extends OncePerRequestFilter {
 
-    private JwtService jwtService;
-    private UserDetailsService userDetailsService;
+    private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
+
     public JwtFilter(JwtService jwtService, UserDetailsService userDetailsService){
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
     }
-    public JwtFilter(){}
     @Override
     protected void doFilterInternal(
             @NotNull HttpServletRequest request,
             @NotNull HttpServletResponse response,
             @NotNull FilterChain filterChain) throws ServletException, IOException {
-if(request.getServletPath().contains("/docente")){
+if(request.getServletPath().contains("/auth")){
     filterChain.doFilter(request, response);
     return;
 }
-final String authHeader = request.getHeader(AUTHORIZATION);
+final String authHeader = request.getHeader("Authorization");
+System.out.println("header " + authHeader);
 final String jwt;
 final String userEmail;
 if(authHeader == null || !authHeader.startsWith("Bearer")){
@@ -46,6 +47,7 @@ if(authHeader == null || !authHeader.startsWith("Bearer")){
 }
 jwt = authHeader.substring(7);
 userEmail = jwtService.extractUsername(jwt);
+System.out.println("useramil ");
 if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
     UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
     if(jwtService.isTokenValid(jwt, userDetails)){
