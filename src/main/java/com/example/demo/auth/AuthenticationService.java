@@ -119,7 +119,9 @@ public class AuthenticationService {
         Date date = jwtService.getExpirationDate(jwtToken);
         System.out.println("Expiration Date: " + date);
         return AuthenticationResponse.builder()
-                .token(jwtToken).build();
+                .token(jwtToken)
+                .expirationDate(date)
+                .build();
     }
 
     @Transactional
