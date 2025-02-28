@@ -22,6 +22,7 @@ public class AuthenticationController {
     public ResponseEntity<?> register(
             @RequestBody @Valid RegistrationRequest request
     ) throws MessagingException {
+        System.out.println(request.getCognome());
         service.register(request);
         return ResponseEntity.accepted().build();
     }
