@@ -2,8 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.DTO.CorsoDTO;
 import com.example.demo.DTO.DocenteDTO;
+import com.example.demo.DTO.DocenteProva;
 import com.example.demo.entity.Corso;
 import com.example.demo.service.CorsoService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,9 +41,14 @@ public class CorsoController {
         CorsoDTO updatedCorso = corsoService.addDiscente(id, corsoDTO);
         return ResponseEntity.ok(updatedCorso);
     }
-   @GetMapping("/findAll")
-    public ResponseEntity<List<CorsoDTO>> findAll() {
-        List<CorsoDTO> corsi = corsoService.findAll();
-        return ResponseEntity.ok(corsi);
-    }
+//   @GetMapping("/findAll")
+//    public ResponseEntity<List<CorsoDTO>> findAll() {
+//        List<CorsoDTO> corsi = corsoService.findAll();
+//        return ResponseEntity.ok(corsi);
+//    }
+@GetMapping("/findAll")
+public ResponseEntity<Page<CorsoDTO>> findAll(@RequestParam(defaultValue = "0") int page) {
+    Page<CorsoDTO> corsi = corsoService.findAll(page);
+    return ResponseEntity.ok(corsi);
+}
 }

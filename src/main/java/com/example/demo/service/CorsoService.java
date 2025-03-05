@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.DTO.CorsoDTO;
 import com.example.demo.DTO.DiscenteDTO;
 import com.example.demo.DTO.DocenteDTO;
+import com.example.demo.DTO.DocenteProva;
 import com.example.demo.entity.Corso;
 import com.example.demo.entity.Discente;
 import com.example.demo.entity.Docente;
@@ -13,6 +14,7 @@ import com.example.demo.utils.CorsoConverter;
 import com.example.demo.utils.DiscenteConverter;
 import com.example.demo.utils.DocenteConverter;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -97,7 +99,7 @@ public class CorsoService {
             throw new EntityNotFoundException("Corso not found");
         }
     }
-    public List<CorsoDTO> findAll(){
+  /*  public List<CorsoDTO> findAll(){
         List<Corso>corsi=corsoRepository.findAll();
         List<CorsoDTO>corsiDTO=new ArrayList<>();
         for(Corso corso : corsi){
@@ -105,7 +107,16 @@ public class CorsoService {
             corsiDTO.add(corsoDTO);
         }
         return corsiDTO;
+    }*/
+
+    public Page<CorsoDTO> findAll(int page) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("nomeCorso").ascending());
+        Page<Corso> corsi = corsoRepository.findAll(pageable);
+        List<CorsoDTO> corsiDTOs = new ArrayList<>();
+        for (Corso corso : corsi) {
+            CorsoDTO corsoDTO = CorsoConverter.entityToDTO(corso);
+            corsiDTOs.add(corsoDTO);
+        }
+        return new PageImpl<>(corsiDTOs, PageRequest.of(corsi.getNumber(), corsi.getSize(), corsi.getSort()), corsi.getTotalElements());
     }
-
-
 }

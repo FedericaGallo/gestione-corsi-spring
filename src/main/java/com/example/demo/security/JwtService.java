@@ -10,9 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 @Service
@@ -93,6 +91,15 @@ public Date extractExpiration(String token){
                 .parseClaimsJws(token)
                 .getBody();
         return claims.getExpiration();
+    }
+
+    public String getRuolo(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(getSignInKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.get("authorities", List.class).toString();
     }
 }
 

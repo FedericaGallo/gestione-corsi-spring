@@ -38,7 +38,6 @@ if(request.getServletPath().contains("/auth")){
     return;
 }
 final String authHeader = request.getHeader("Authorization");
-System.out.println("header " + authHeader);
 final String jwt;
 final String userEmail;
 if(authHeader == null || !authHeader.startsWith("Bearer")){
@@ -47,7 +46,6 @@ if(authHeader == null || !authHeader.startsWith("Bearer")){
 }
 jwt = authHeader.substring(7);
 userEmail = jwtService.extractUsername(jwt);
-System.out.println("useramil ");
 if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
     UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
     if(jwtService.isTokenValid(jwt, userDetails)){

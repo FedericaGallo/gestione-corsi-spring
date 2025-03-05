@@ -56,6 +56,8 @@ public class AuthenticationService {
     public void register(RegistrationRequest request) throws MessagingException {
         var userRole = roleRepository.findByNome("USER")
                 .orElseThrow(() -> new IllegalStateException("not found"));
+        var adminRole = roleRepository.findByNome("ADMIN")
+                .orElseThrow(() -> new IllegalStateException("not found"));
         var user = Utente.builder()
                 .nome(request.getNome())
                 .cognome(request.getCognome())
@@ -63,7 +65,7 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
                 .enabled(false)
-                .ruoli(List.of(userRole))
+                .ruoli(request.getEmail().contains("@uni.edu")? List.of(adminRole): List.of(userRole) )
                 .build();
         utenteRepository.save(user);
         sendValidationEmail(user);
@@ -118,9 +120,11 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(claims, user);
         Date date = jwtService.getExpirationDate(jwtToken);
         System.out.println("Expiration Date: " + date);
+        String ruoli =jwtService.getRuolo(jwtToken);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .expirationDate(date)
+                .ruoli(ruoli)
                 .build();
     }
 

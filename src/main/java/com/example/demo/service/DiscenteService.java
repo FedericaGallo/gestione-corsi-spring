@@ -8,6 +8,7 @@ import com.example.demo.repository.DiscenteRepository;
 import com.example.demo.utils.CorsoConverter;
 import com.example.demo.utils.DiscenteConverter;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -45,5 +46,16 @@ public class DiscenteService {
         } else {
             throw new EntityNotFoundException("Discente not found with id" + id);
         }
+    }
+
+    public Page<DiscenteDTO> findAll(int page) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("nomeCorso").ascending());
+        Page<Discente> discenti = discenteRepository.findAll(pageable);
+        List<DiscenteDTO> discentiDTOs = new ArrayList<>();
+        for (Discente discente : discenti) {
+            DiscenteDTO discenteDTO = DiscenteConverter.entityToDTO(discente);
+            discentiDTOs.add(discenteDTO);
+        }
+        return new PageImpl<>(discentiDTOs, PageRequest.of(discenti.getNumber(), discenti.getSize(), discenti.getSort()), discenti.getTotalElements());
     }
 }

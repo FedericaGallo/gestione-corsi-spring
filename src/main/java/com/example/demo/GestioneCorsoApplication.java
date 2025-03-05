@@ -25,6 +25,11 @@ public class GestioneCorsoApplication {
 						Ruolo.builder().nome("USER").build()
 				);
 			}
+			if (ruoloRepository.findByNome("ADMIN").isEmpty()){
+				ruoloRepository.save(
+						Ruolo.builder().nome("ADMIN").build()
+				);
+			}
 		};
 	}
 }
