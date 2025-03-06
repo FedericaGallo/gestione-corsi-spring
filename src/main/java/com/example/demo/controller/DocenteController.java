@@ -47,15 +47,16 @@ public class DocenteController {
         DocenteDTO updatedDocente = docenteService.updateDocente(id, docenteDTO);
         return ResponseEntity.ok(updatedDocente);
     }
-    /*@GetMapping("/findAll")
-    public ResponseEntity<List<DocenteDTO>> findAll() {
-        List<DocenteDTO> docenti = docenteService.findAll();
-        return ResponseEntity.ok(docenti);
-    }*/
+    //overloading di findAll
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/findAll")
+    @GetMapping("/findAllPagination")
     public ResponseEntity<Page<DocenteProva>> findAll(@RequestParam(defaultValue = "0") int page) {
         Page<DocenteProva> docenti = docenteService.findAllProva(page);
+        return ResponseEntity.ok(docenti);
+    }
+    @GetMapping("/findAll")
+    public ResponseEntity<List<DocenteDTO>> findAll() {
+        List<DocenteDTO> docenti = docenteService.findAll();
         return ResponseEntity.ok(docenti);
     }
     @CrossOrigin(origins = "http://localhost:4200")

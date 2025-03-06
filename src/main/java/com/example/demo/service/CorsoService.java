@@ -69,7 +69,7 @@ public class CorsoService {
            Corso corsoToSave = CorsoConverter.DTOToEntityUpdate(corsoDTO, existingCorso);
            Docente docente = docenteRepository.findById(corsoDTO.getIdDocenteDTO()).orElseThrow(()-> new RuntimeException("docente not found"));
            existingCorso.setDocente(docente);
-           Corso updateCorso = corsoRepository.save(existingCorso);
+           Corso updateCorso = corsoRepository.save(corsoToSave);
            return CorsoConverter.entityToDTO(updateCorso);
         }else{
             throw new EntityNotFoundException("Corso not found");

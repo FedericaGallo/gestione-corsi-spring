@@ -82,7 +82,7 @@ public class CorsoConverter {
     }
 
     public static Corso DTOToEntityUpdate(CorsoDTO corsoDTO, Corso corso){
-        if(corsoDTO.getNomeCorso().isEmpty() && corsoDTO.getNomeCorso() != null){
+        if(!(corsoDTO.getNomeCorso().isEmpty()) && corsoDTO.getNomeCorso() != null){
             corso.setNomeCorso(corsoDTO.getNomeCorso());
         }
         if (corsoDTO.getDataFine() != null){

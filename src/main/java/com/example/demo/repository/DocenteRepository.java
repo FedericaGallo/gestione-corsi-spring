@@ -13,4 +13,5 @@ import java.util.List;
 public interface DocenteRepository extends JpaRepository<Docente, Integer> {
     Page<Docente> findAllByNome(String nome, Pageable pageable);
     Page<Docente> findAll(Pageable pageable);
+    List<Docente> findAll();
 }
