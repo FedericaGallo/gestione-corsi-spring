@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CorsoService {
@@ -99,6 +100,22 @@ public class CorsoService {
             throw new EntityNotFoundException("Corso not found");
         }
     }
+
+    public CorsoDTO removeDiscente(Integer idDiscente, Integer idCorso){
+        Optional<Corso> corso = corsoRepository.findById(idCorso);
+        if (corso.isPresent()){
+            Corso existingCorso = corso.get();
+            List<Discente> discentiUpdated = existingCorso.getDiscenti().stream()
+                    .filter(d -> d.getId()!= idDiscente)
+                    .collect(Collectors.toList());
+            existingCorso.setDiscenti(discentiUpdated);
+            Corso corsoSaved= corsoRepository.save(existingCorso);
+            return CorsoConverter.entityToDTO(corsoSaved);
+        }else{
+            throw new EntityNotFoundException("Corso not found");
+        }
+    }
+
   /*  public List<CorsoDTO> findAll(){
         List<Corso>corsi=corsoRepository.findAll();
         List<CorsoDTO>corsiDTO=new ArrayList<>();

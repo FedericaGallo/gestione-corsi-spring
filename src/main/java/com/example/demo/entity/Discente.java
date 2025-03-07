@@ -23,7 +23,6 @@ public class Discente {
     @ManyToMany(
             mappedBy = "discenti"
     )
-
     private List<Corso> corsiSeguiti;
 
     /*public Discente(){

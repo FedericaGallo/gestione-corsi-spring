@@ -23,7 +23,7 @@ public class Corso {
     @ManyToOne
     @JoinColumn(name = "docente_id")
     private Docente docente;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "corso_discente",
            joinColumns = @JoinColumn(name = "corso_id"),
            inverseJoinColumns = @JoinColumn(name="discente_id"))

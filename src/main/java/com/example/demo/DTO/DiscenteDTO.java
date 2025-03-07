@@ -14,7 +14,7 @@ public class DiscenteDTO {
     private String nome;
     private String cognome;
     private String matricola;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataDiNascita;
     private List<CorsoDTO> corsiSeguiti;
 
@@ -45,17 +45,28 @@ public class DiscenteDTO {
         return id;
     }
 
-    public void setMatricola(String matricola) {this.matricola = matricola;}
+    public void setMatricola(String matricola) {
+        this.matricola = matricola;
+    }
 
-    public String getMatricola() {return matricola; }
+    public String getMatricola() {
+        return matricola;
+    }
 
-    public void setDataDiNascita(LocalDate data) {this.dataDiNascita = data;}
+    public void setDataDiNascita(LocalDate data) {
+        this.dataDiNascita = data;
+    }
 
-    public LocalDate getDataDiNascita() {return dataDiNascita; }
+    public LocalDate getDataDiNascita() {
+        return dataDiNascita;
+    }
 
     public void setCorsiSeguiti(List<CorsoDTO> corsiSeguiti) {
-       this.corsiSeguiti=corsiSeguiti; }
+        this.corsiSeguiti = corsiSeguiti;
+    }
+
     public List<CorsoDTO> getCorsiSeguiti() {
-        return corsiSeguiti; }
+        return corsiSeguiti;
+    }
 
 }
