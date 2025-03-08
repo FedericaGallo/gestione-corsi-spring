@@ -67,4 +67,15 @@ public class CorsoController {
         Page<CorsoDTO> corsi = corsoService.findAll(page);
         return ResponseEntity.ok(corsi);
     }
+
+    @GetMapping("/{corsoId}/discenti-disponibili")
+    public ResponseEntity<List<DiscenteDTO>> getDiscentiDisponibili(@PathVariable Integer corsoId) {
+        List<DiscenteDTO> discentiDisponibiliDTO = corsoService.getDiscentiDisponibili(corsoId);
+        return ResponseEntity.ok(discentiDisponibiliDTO);
+    }
+    @PutMapping("{idCorso}/iscrivi")
+    public ResponseEntity<CorsoDTO> iscrivialCorso(@PathVariable("idCorso") Integer id, @RequestBody CorsoDTO corsoDTO) {
+        CorsoDTO updatedCorso = corsoService.iscriviAlCorso(id, corsoDTO);
+        return ResponseEntity.ok(updatedCorso);
+    }
 }

@@ -14,6 +14,7 @@ import com.example.demo.utils.CorsoConverter;
 import com.example.demo.utils.DiscenteConverter;
 import com.example.demo.utils.DocenteConverter;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
@@ -77,6 +78,39 @@ public class CorsoService {
         }
     }
 
+    @Transactional
+    public CorsoDTO iscriviAlCorso(Integer id, CorsoDTO corsoDTO) {
+        Optional<Corso> corsoOpt = corsoRepository.findById(id);
+        if (corsoOpt.isPresent()) {
+            Corso existingCorso = corsoOpt.get();
+            System.out.println("Corsi seguiti prima dell'aggiornamento: " + existingCorso.getDiscenti());
+
+            for (Integer discenteId : corsoDTO.getDiscentiId()) {
+
+                Discente discenteNuovo = discenteRepository.findById(discenteId)
+                        .orElseThrow(() -> new RuntimeException("Corso non trovato"));
+
+                if (!existingCorso.getDiscenti().contains(discenteNuovo)) {
+                    existingCorso.getDiscenti().add(discenteNuovo);
+                }
+
+                if (!discenteNuovo.getCorsiSeguiti().contains(existingCorso)) {
+                    discenteNuovo.getCorsiSeguiti().add(existingCorso);
+                }
+
+                discenteRepository.save(discenteNuovo);
+            }
+
+            Corso updatedCorso = corsoRepository.save(existingCorso);
+
+            System.out.println("discent iscirtti dopo l'aggiornamento: " + updatedCorso.getDiscenti());
+
+            return CorsoConverter.entityToDTOGetDiscente(updatedCorso);
+        } else {
+            throw new EntityNotFoundException("Discente non trovato con id " + id);
+        }
+    }
+
     public CorsoDTO addDiscente(Integer id, CorsoDTO corsoDTO){
         Optional<Corso> corso = corsoRepository.findById(id);
         if (corso.isPresent()){
@@ -135,5 +169,15 @@ public class CorsoService {
             corsiDTOs.add(corsoDTO);
         }
         return new PageImpl<>(corsiDTOs, PageRequest.of(corsi.getNumber(), corsi.getSize(), corsi.getSort()), corsi.getTotalElements());
+    }
+
+    public List<DiscenteDTO> getDiscentiDisponibili(Integer corsoId) {
+        List<Discente> discentiDisponibili = discenteRepository.findDiscentiDisponibiliByCorsoId(corsoId);
+        List<DiscenteDTO> discentiDTODisponibili = new ArrayList<>();
+        for (Discente discente : discentiDisponibili){
+            DiscenteDTO discenteDTO = DiscenteConverter.entityToDTO(discente);
+            discentiDTODisponibili.add(discenteDTO);
+        }
+        return discentiDTODisponibili;
     }
 }

@@ -18,6 +18,7 @@ public class CorsoDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataFine;
     private List<DiscenteDTO> discenti;
+    private List<Integer> discentiId;
     private String nomeDocenteDTO;
     private String cognomeDocenteDTO;
     private Integer idDocenteDTO;
@@ -40,6 +41,9 @@ public CorsoDTO(){
     public void setDiscenti(List<DiscenteDTO> discenti){
         this.discenti = discenti;
     }
+    public void setDiscentiId(List<Integer> discentiId){
+        this.discentiId = discentiId;
+    }
     public void setNomeDocenteDTO(String nome){
         this.nomeDocenteDTO=nome;
     }
@@ -60,6 +64,9 @@ public CorsoDTO(){
     }
     public List<DiscenteDTO> getDiscenti(){
         return this.discenti;
+    }
+    public List<Integer> getDiscentiId(){
+        return this.discentiId;
     }
     public int getId(){
         return id;
