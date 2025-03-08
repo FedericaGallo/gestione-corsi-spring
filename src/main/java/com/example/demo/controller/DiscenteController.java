@@ -38,13 +38,13 @@ public class DiscenteController {
         return ResponseEntity.ok(discenti);
     }
     @PutMapping("/updateDiscente/{idDiscente}")
-    public ResponseEntity<DiscenteDTO> updateCorso(@PathVariable("idDiscente") Integer id, @RequestBody DiscenteDTO discenteDTO) {
+    public ResponseEntity<DiscenteDTO> updateDiscente(@PathVariable("idDiscente") Integer id, @RequestBody DiscenteDTO discenteDTO) {
         DiscenteDTO updatedDiscente = discenteService.updateDiscente(id, discenteDTO);
         return ResponseEntity.ok(updatedDiscente);
     }
     @PutMapping("{idDiscente}/iscrivi")
-    public ResponseEntity<DiscenteDTO> updateCorso(@PathVariable("idDiscente") Integer id, @RequestBody List<CorsoDTO> corsiDTO) {
-        DiscenteDTO updatedDiscente = discenteService.iscriviDiscente(id, corsiDTO);
+    public ResponseEntity<DiscenteDTO> iscriviDiscente(@PathVariable("idDiscente") Integer id, @RequestBody DiscenteDTO discenteDTO) {
+        DiscenteDTO updatedDiscente = discenteService.iscriviDiscente(id, discenteDTO);
         return ResponseEntity.ok(updatedDiscente);
     }
 

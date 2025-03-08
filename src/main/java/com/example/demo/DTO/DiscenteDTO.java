@@ -17,6 +17,7 @@ public class DiscenteDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataDiNascita;
     private List<CorsoDTO> corsiSeguiti;
+    private List<Integer>corsiSeguitiId;
 
     /*public DiscenteDTO(){
         this.corsiSeguiti=new ArrayList<>();
@@ -67,6 +68,13 @@ public class DiscenteDTO {
 
     public List<CorsoDTO> getCorsiSeguiti() {
         return corsiSeguiti;
+    }
+    public List<Integer> getCorsiSeguitiId() {
+        return corsiSeguitiId;
+    }
+
+    public void setCorsiSeguitiId(List<Integer> corsiSeguitiId) {
+        this.corsiSeguitiId = corsiSeguitiId;
     }
 
 }

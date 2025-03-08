@@ -5,6 +5,7 @@ import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Entity
@@ -23,16 +24,13 @@ public class Corso {
     @ManyToOne
     @JoinColumn(name = "docente_id")
     private Docente docente;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "corso_discente",
            joinColumns = @JoinColumn(name = "corso_id"),
            inverseJoinColumns = @JoinColumn(name="discente_id"))
     private List<Discente> discenti;
 
-    public Corso(){
-        this.docente=new Docente();
-        this.discenti=new ArrayList<>();
-    }
+
     public void setNomeCorso(String nomeCorso){
         this.nomeCorso = nomeCorso;
     }

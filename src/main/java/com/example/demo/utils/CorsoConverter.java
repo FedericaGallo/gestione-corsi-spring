@@ -42,8 +42,8 @@ public class CorsoConverter {
         corsoDTO.setCognomeDocenteDTO(corso.getDocenteNome());
         corsoDTO.setIdDocenteDTO(corso.getDocenteId());
         if(!corso.getDiscenti().isEmpty()){
-            for (int i=0; i<corso.getDiscenti().size(); i++){
-                DiscenteDTO discenteDTO= DiscenteConverter.entityToDTO(corso.getDiscenti().get(i));
+            for (Discente discente : corso.getDiscenti()) {
+                DiscenteDTO discenteDTO = DiscenteConverter.entityToDTO(discente);
                 corsoDTO.getDiscenti().add(discenteDTO);
             }
         }

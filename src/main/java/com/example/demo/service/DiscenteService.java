@@ -58,28 +58,46 @@ public class DiscenteService {
             throw new EntityNotFoundException("Discente not found with id " + id);
         }
     }
+
     @Transactional
-    public DiscenteDTO iscriviDiscente(Integer id, List<CorsoDTO> corsiDTO) {
-        Optional<Discente> discente = discenteRepository.findById(id);
-        if (discente.isPresent()) {
-            Discente existingDiscente = discente.get();
-            System.out.println(existingDiscente.getCorsiSeguiti());
-            List<Corso> corsiSeguiti = existingDiscente.getCorsiSeguiti();
-            for (CorsoDTO corso : corsiDTO){
-               Corso corsoNuovo = corsoRepository.findById(corso.getId()).orElseThrow(()-> new RuntimeException("corso not found"));
-               corsiSeguiti.add(corsoNuovo);
+    public DiscenteDTO iscriviDiscente(Integer id, DiscenteDTO discenteDTO) {
+        Optional<Discente> discenteOpt = discenteRepository.findById(id);
+        if (discenteOpt.isPresent()) {
+            Discente existingDiscente = discenteOpt.get();
+            System.out.println("Corsi seguiti prima dell'aggiornamento: " + existingDiscente.getCorsiSeguiti());
+
+            // Itera sui corsi ricevuti
+            for (Integer corsoId : discenteDTO.getCorsiSeguitiId()) {
+                // Recupera il Corso dal database
+                Corso corsoNuovo = corsoRepository.findById(corsoId)
+                        .orElseThrow(() -> new RuntimeException("Corso non trovato"));
+
+                // Aggiungi il Corso alla lista dei corsi del Discente (se non è già presente)
+                if (!existingDiscente.getCorsiSeguiti().contains(corsoNuovo)) {
+                    existingDiscente.getCorsiSeguiti().add(corsoNuovo);
+                }
+
+                // Aggiungi il Discente alla lista dei discenti del Corso (se non è già presente)
+                if (!corsoNuovo.getDiscenti().contains(existingDiscente)) {
+                    corsoNuovo.getDiscenti().add(existingDiscente);
+                }
+
+                // Salva il Corso per aggiornare la relazione
+                corsoRepository.save(corsoNuovo);
             }
-            existingDiscente.setCorsiSeguiti(corsiSeguiti);
-            System.out.println(existingDiscente.getCorsiSeguiti());
+
+            // Salva il Discente con i nuovi corsi
             Discente updatedDiscente = discenteRepository.save(existingDiscente);
-            System.out.println(updatedDiscente.getCorsiSeguiti());
-            Discente discenteq = discenteRepository.getById(id);
-            System.out.println(discenteq.getCorsiSeguiti());
+
+            System.out.println("Corsi seguiti dopo l'aggiornamento: " + updatedDiscente.getCorsiSeguiti());
+
+            // Converti e restituisci il DTO del Discente aggiornato
             return DiscenteConverter.entityToDTOGetDiscente(updatedDiscente);
         } else {
-            throw new EntityNotFoundException("Discente not found with id " + id);
+            throw new EntityNotFoundException("Discente non trovato con id " + id);
         }
     }
+
 
     public void deleteDiscente(Integer id) {
         Optional<Discente> discente = discenteRepository.findById(id);
